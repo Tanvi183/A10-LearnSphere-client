@@ -1,20 +1,29 @@
 @import "tailwindcss";
-@plugin "daisyui" {
-  themes: light --default;
-}
-
-@plugin "daisyui/theme" {
-  name: "light";
-  default: true;
-  --color-primary: #632ee3;
-  --color-secondary: teal;
-}
+@plugin "daisyui";
 
 /* Custom button override */
 .btn-primary {
-  @apply bg-gradient-to-r from-[#632EE3] to-[#9F62F2] border-none text-white;
+  @apply relative flex items-center gap-2 
+           bg-[#5751e1] text-white font-semibold 
+           px-7 py-3 rounded-full 
+           shadow-[4px_6px_0_#161439] 
+           transition-all duration-300 ease-linear 
+           hover:bg-[#ffc224] hover:text-black hover:shadow-none;
 }
 
-.btn-primary:hover {
-  @apply opacity-90;
+.btn-secondary {
+  @apply relative flex items-center gap-2 
+           bg-[#ffc224] text-black font-semibold 
+           px-7 py-3 rounded-full 
+           shadow-[4px_6px_0_#161439] 
+           transition-all duration-300 ease-linear 
+           hover:bg-[#5751e1] hover:text-white hover:shadow-none;
+}
+
+.bg-primary {
+  @apply bg-[#141047];
+}
+
+.text-primary {
+  @apply text-[#ffc224];
 }
