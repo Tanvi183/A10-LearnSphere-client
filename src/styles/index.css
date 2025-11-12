@@ -1,6 +1,11 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+html,
+body {
+  overflow-x: auto;
+}
+
 /* Custom button override */
 .btn-primary {
   @apply relative flex items-center gap-2 
@@ -24,6 +29,19 @@
   @apply bg-[#141047];
 }
 
+.bg-secondary {
+  @apply bg-[#ffc224];
+}
+
 .text-primary {
   @apply text-[#ffc224];
 }
+
+/* Hide scrollbar for all browsers */
+/* .scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+} */

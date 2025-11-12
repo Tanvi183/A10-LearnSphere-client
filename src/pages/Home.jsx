@@ -1,9 +1,16 @@
 import React from "react";
+import BannerSection from "../components/Home/BannerSection";
+import TopCategories from "../components/Home/TopCategories";
+import PopularCourses from "../components/Home/PopularCourses";
+import AboutUs from "../components/Home/AboutUs";
 
 const Home = () => {
   return (
     <div>
-      <h1 className="text-center min-h-screen">This is home page</h1>
+      <BannerSection></BannerSection>
+      <TopCategories></TopCategories>
+      <AboutUs></AboutUs>
+      <PopularCourses></PopularCourses>
     </div>
   );
 };
