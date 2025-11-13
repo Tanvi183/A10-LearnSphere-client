@@ -37,7 +37,11 @@ const router = createBrowserRouter([
         path: "coursesDetails/:id",
         loader: ({ params }) =>
           fetch(`http://localhost:5000/courses/${params.id}`),
-        element: <CourseDetails></CourseDetails>,
+        element: (
+          <PrivateRoute>
+            <CourseDetails />
+          </PrivateRoute>
+        ),
       },
     ],
   },

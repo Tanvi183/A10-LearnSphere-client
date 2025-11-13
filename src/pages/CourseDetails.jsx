@@ -1,10 +1,7 @@
-import React, { use, useRef } from "react";
+import React, { use, useRef, useState } from "react";
 import { Link, useLoaderData, useNavigate } from "react-router";
 import { AuthContext } from "../context/AuthContext";
 import Swal from "sweetalert2";
-// import { AtuhContext } from "../../contexts/AuthContext";
-// import Swal from "sweetalert2";
-// import axios from "axios";
 
 const CourseDetails = () => {
   const {
@@ -24,36 +21,7 @@ const CourseDetails = () => {
   const enrollModalRef = useRef(null);
   const { user } = use(AuthContext);
   const navigate = useNavigate();
-  //   const [bids, setBids] = useState([]);
-
-  // bids loads from databse
-  //   useEffect(() => {
-  //     axios
-  //       .get(
-  //         `https://smart-deals-api-server-fawn.vercel.app/product/bids/${productId}`,
-  //         {
-  //           headers: {
-  //             authorization: `Bearer ${user.accessToken}`,
-  //           },
-  //         }
-  //       )
-  //       .then((data) => {
-  //         setBids(data.data);
-  //         console.log("loading with axios", data);
-  //       });
-  //   }, [productId, user]);
-
-  // useEffect(() => {
-  //   fetch(`https://smart-deals-api-server-fawn.vercel.app/product/bids/${productId}`, {
-  //     headers: {
-  //       authorization: `Bearer ${user.accessToken}`,
-  //     },
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setBids(data);
-  //     });
-  // }, [productId, user]);
+  const [enrollment, setEnrollment] = useState([]);
 
   const handleEnrollModalOpen = () => {
     if (!user) {
@@ -73,49 +41,76 @@ const CourseDetails = () => {
     enrollModalRef.current.showModal();
   };
 
-  // Bid submit and send to database
-  //   const handleBidSubmit = (e) => {
-  //     e.preventDefault();
-  //     const name = e.target.name.value;
-  //     const email = e.target.email.value;
-  //     const bid = e.target.bid.value;
-  //     // console.log(name, email, bid, productId)
-  //     const newBid = {
-  //       product: productId,
-  //       buyer_name: name,
-  //       buyer_email: email,
-  //       buyer_image: user?.photoURL,
-  //       bid_price: bid,
-  //       status: "pending",
-  //     };
+  // Enrollment submit and send to database
+  const handleEnrollSubmit = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const courseTitle = form.courseTitle.value;
+    const courseDuration = form.duration.value;
+    const coursePrice = form.price.value;
+    const message = form.message.value;
 
-  //     fetch("https://smart-deals-api-server-fawn.vercel.app/bids", {
-  //       method: "POST",
-  //       headers: {
-  //         "content-type": "application/json",
-  //       },
-  //       body: JSON.stringify(newBid),
-  //     })
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         // console.log("Bids Place Successfully ", data);
-  //         if (data.insertedId) {
-  //           enrollModalRef.current.close();
-  //           Swal.fire({
-  //             position: "top-end",
-  //             icon: "success",
-  //             title: "Your bid has been placed.",
-  //             showConfirmButton: false,
-  //             timer: 1500,
-  //           });
-  //         }
-  //         // add the new bid to the state
-  //         newBid._id = data.insertedId;
-  //         const newBids = [...bids, newBid];
-  //         newBids.sort((a, b) => b.bid_price - a.bid_price);
-  //         setBids(newBids);
-  //       });
-  //   };
+    const newEnroll = {
+      userEmail: email,
+      userName: name,
+      userPhoto: user?.photoURL,
+      courseId: courseId,
+      courseTitle: courseTitle,
+      duration: courseDuration,
+      courseImage: image,
+      price: coursePrice,
+      message: message,
+      status: "pending",
+    };
+
+    fetch("http://localhost:5000/enrollment", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newEnroll),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log(data);
+        enrollModalRef.current.close();
+
+        if (data.insertedId) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "You're successfully enrolled!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          // add the new enrollment to the state
+          newEnroll._id = data.insertedId;
+          const newEnrolls = [...enrollment, newEnroll];
+          newEnrolls.sort((a, b) => b.price - a.price);
+          setEnrollment(newEnrolls);
+        } else if (data.message === "Already enrolled in this course.") {
+          Swal.fire({
+            icon: "info",
+            title: "Already Enrolled",
+            text: data.message,
+          });
+        } else {
+          Swal.fire({
+            icon: "warning",
+            title: "Unexpected Response",
+            text: "Something went wrong. Please try again.",
+          });
+        }
+      })
+      .catch((error) => {
+        console.error("Enrollment error:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Error!",
+          text: "Failed to enroll. Please check your backend connection.",
+        });
+      });
+  };
 
   return (
     <div>
@@ -243,59 +238,6 @@ const CourseDetails = () => {
           </div>
         </div>
 
-        {/* bids model */}
-        {/* <div>
-          <dialog
-            ref={bidModalRef}
-            className="modal modal-bottom sm:modal-middle"
-          >
-            <div className="modal-box">
-              <h3 className="font-bold text-lg">Give the best offer!</h3>
-              <p className="py-4">Offer something seller can not resist</p>
-              <form
-                onSubmit={handleBidSubmit}
-              >
-                <fieldset className="fieldset">
-                  <label className="label">Name</label>
-                  <input
-                    type="text"
-                    name="name"
-                    className="input"
-                    readOnly
-                    defaultValue={user?.displayName}
-                  />
-
-                  <label className="label">Email</label>
-                  <input
-                    type="email"
-                    className="input"
-                    name="email"
-                    readOnly
-                    defaultValue={user?.email}
-                  />
-         
-                  <label className="label">Bid</label>
-                  <input
-                    type="text"
-                    name="bid"
-                    className="input"
-                    placeholder="Your Bid"
-                  />
-                  <button className="btn btn-neutral mt-4">
-                    Please your bid
-                  </button>
-                </fieldset>
-              </form>
-
-              <div className="modal-action">
-                <form method="dialog">
-                  <button className="btn">Cancel</button>
-                </form>
-              </div>
-            </div>
-          </dialog>
-        </div> */}
-
         {/* Enrollment Modal */}
         <div>
           <dialog
@@ -310,10 +252,7 @@ const CourseDetails = () => {
                 Please confirm your enrollment details below
               </p>
 
-              <form
-                // onSubmit={handleEnrollSubmit}
-                className="space-y-3"
-              >
+              <form onSubmit={handleEnrollSubmit} className="space-y-3">
                 <fieldset className="fieldset">
                   <label className="label font-medium">Full Name</label>
                   <input
@@ -373,7 +312,7 @@ const CourseDetails = () => {
                     type="submit"
                     className="btn btn-secondary mt-4 w-full"
                   >
-                    Confirm Enrollment
+                    Enroll now
                   </button>
                 </fieldset>
               </form>
@@ -387,57 +326,6 @@ const CourseDetails = () => {
           </dialog>
         </div>
       </div>
-
-      {/* <div className="max-w-7xl mx-auto">
-        <h3 className="text-3xl">
-          Bids for this Product:{" "}
-        </h3>
-        <div className="overflow-x-auto">
-          <table className="table">
-            <thead>
-              <tr>
-                <th>SL No.</th>
-                <th>Buyer Name</th>
-                <th>Buyer Email</th>
-                <th>Bid Price</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {bids.map((bid, index) => (
-                <tr key={bid._id}>
-                  <th>{index + 1} </th>
-                  <td>
-                    <div className="flex items-center gap-3">
-                      <div className="avatar">
-                        <div className="mask mask-squircle h-12 w-12">
-                          {bid.buyer_image ? (
-                            <img src={bid.buyer_image} alt={bid.buyer_name} />
-                          ) : (
-                            <img
-                              src="https://img.daisyui.com/images/profile/demo/2@94.webp"
-                              alt="Avatar Tailwind CSS Component"
-                            />
-                          )}
-                        </div>
-                      </div>
-                      <div>
-                        <div className="font-bold">{bid.buyer_name}</div>
-                        <div className="text-sm opacity-50">United States</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>{bid.buyer_email}</td>
-                  <td>{bid.bid_price}</td>
-                  <th>
-                    <button className="btn btn-ghost btn-xs">details</button>
-                  </th>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div> */}
     </div>
   );
 };
