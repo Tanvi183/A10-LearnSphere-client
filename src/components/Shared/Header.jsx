@@ -141,18 +141,6 @@ export default function Header() {
             >
               Dashboard
             </NavLink>
-            {user && (
-              <NavLink
-                to="/profile"
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-primary border-b-2 border-pritext-primary pb-1"
-                    : "hover:text-yellow-500"
-                }
-              >
-                Profile
-              </NavLink>
-            )}
           </nav>
 
           {/* Right Icons */}
@@ -175,7 +163,7 @@ export default function Header() {
           {/* Mobile Icon */}
           <div className="md:hidden flex items-center gap-3">
             {loading ? null : (
-              <Link to={user ? "/profile" : "/login"}>
+              <Link to={user ? "/dashboard" : "/login"}>
                 <img
                   src={user?.photoURL || userImg}
                   title={user?.displayName || "User"}
@@ -249,34 +237,6 @@ export default function Header() {
             >
               Dashboard
             </NavLink>
-            {user && (
-              <NavLink
-                to="/profile"
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-primary border-b-2 border-pritext-primary pb-1"
-                    : "hover:text-yellow-500"
-                }
-              >
-                Profile
-              </NavLink>
-            )}
-
-            {user ? (
-              <button
-                onClick={handleLogOut}
-                className="btn-secondary w-[40%] mt-4 cursor-pointer"
-              >
-                Logout
-              </button>
-            ) : (
-              <Link
-                to="/login"
-                className="btn-secondary w-[40%] mt-4 cursor-pointer"
-              >
-                Login
-              </Link>
-            )}
           </nav>
 
           {/* Social Icons */}

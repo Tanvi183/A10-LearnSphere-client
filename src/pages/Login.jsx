@@ -38,7 +38,7 @@ const Login = () => {
           .then((res) => res.json())
           .then((data) => {
             toast.success(`Welcome, ${data.displayName || "User"}!`);
-            navigate(`${location.state ? location.state : "/profile"}`);
+            navigate(`${location.state ? location.state : "/dashboard"}`);
             console.log("data after user save", data);
           });
       })
@@ -56,7 +56,7 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         toast.success(`Welcome, ${user.displayName || "User"}!`);
-        navigate(`${location.state ? location.state : "/profile"}`);
+        navigate(`${location.state ? location.state : "/dashboard"}`);
       })
       .catch((error) => handleAuthError(error));
   };
