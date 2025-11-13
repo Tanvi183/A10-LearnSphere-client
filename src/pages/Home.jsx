@@ -1,10 +1,13 @@
 import React from "react";
 import BannerSection from "../components/Home/BannerSection";
 import TopCategories from "../components/Home/TopCategories";
-import PopularCourses from "../components/Home/PopularCourses";
 import AboutUs from "../components/Home/AboutUs";
 import TopInstructors from "../components/Home/TopInstructors";
 import CoursesSection from "../components/Home/CoursesSection";
+
+const latestProductsPromise = fetch(
+  "http://localhost:5000/latest-courses"
+).then((res) => res.json());
 
 const Home = () => {
   return (
@@ -12,9 +15,10 @@ const Home = () => {
       <BannerSection></BannerSection>
       <TopCategories></TopCategories>
       <AboutUs></AboutUs>
-      <PopularCourses></PopularCourses>
       <TopInstructors></TopInstructors>
-      <CoursesSection></CoursesSection>
+      <CoursesSection
+        latestProductsPromise={latestProductsPromise}
+      ></CoursesSection>
     </div>
   );
 };

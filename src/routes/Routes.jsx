@@ -9,6 +9,7 @@ import Profile from "../pages/Profile";
 import PrivateRoute from "./PrivateRoute";
 import DeshboardLayout from "../layouts/DeshboardLayout";
 import Deshboard from "../pages/Dashboard";
+import CourseDetails from "../pages/CourseDetails";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
       },
       {
         path: "courses",
+        loader: () => fetch("http://localhost:5000/courses"),
         element: <AllCourses />,
       },
       {
@@ -30,6 +32,12 @@ const router = createBrowserRouter([
       {
         path: "register",
         element: <Register />,
+      },
+      {
+        path: "coursesDetails/:id",
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/courses/${params.id}`),
+        element: <CourseDetails></CourseDetails>,
       },
     ],
   },

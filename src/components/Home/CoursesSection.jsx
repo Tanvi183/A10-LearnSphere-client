@@ -1,42 +1,11 @@
 import { Link } from "react-router";
 import CourseCard from "../Courses/CourseCard";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { use } from "react";
 
-const CoursesSection = () => {
-  const courses = [
-    {
-      image: "https://i.ibb.co.com/TqHN9JPx/demo-app-1.webp",
-      category: "Business",
-      rating: "4.8",
-      title: "Financial Analyst Training & Investing Course",
-      instructor: "Robert Fox",
-      price: 12.0,
-    },
-    {
-      image: "https://i.ibb.co.com/HDxxz26J/demo-app-2.webp",
-      title: "The Complete Graphic Design for Beginners",
-      instructor: "Jenny Wilson",
-      price: 19,
-      category: "Design",
-      rating: 4.5,
-    },
-    {
-      image: "https://i.ibb.co.com/TqHN9JPx/demo-app-1.webp",
-      category: "Business",
-      rating: "4.8",
-      title: "Financial Analyst Training & Investing Course",
-      instructor: "Robert Fox",
-      price: 12.0,
-    },
-    {
-      image: "https://i.ibb.co.com/HDxxz26J/demo-app-2.webp",
-      title: "The Complete Graphic Design for Beginners",
-      instructor: "Jenny Wilson",
-      price: 19,
-      category: "Design",
-      rating: 4.5,
-    },
-  ];
+const CoursesSection = ({ latestProductsPromise }) => {
+  const courses = use(latestProductsPromise);
+  // console.log(courses);
 
   return (
     <section className="py-16">
@@ -53,9 +22,9 @@ const CoursesSection = () => {
           </p>
         </div>
 
-        <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4 place-items-center">
-          {courses.map((c, i) => (
-            <CourseCard key={i} course={c} />
+        <div className="mt-10  grid sm:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+          {courses.map((course) => (
+            <CourseCard key={course._id} course={course} />
           ))}
         </div>
 

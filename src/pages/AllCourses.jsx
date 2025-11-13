@@ -2,29 +2,11 @@ import React from "react";
 import { FaBook, FaFlag, FaStar } from "react-icons/fa";
 import SidebarFilters from "../components/Courses/SidebarFilters";
 import CourseCard from "../components/Courses/CourseCard";
-import Pagination from "../components/Courses/Pagination";
-
-const courses = [
-  {
-    image: "https://i.ibb.co.com/TqHN9JPx/demo-app-1.webp", // or your imported image path
-    category: "Business",
-    rating: "4.8",
-    title: "Financial Analyst Training & Investing Course",
-    instructor: "Robert Fox",
-    price: 12.0,
-  },
-  {
-    image: "https://i.ibb.co.com/HDxxz26J/demo-app-2.webp",
-    title: "The Complete Graphic Design for Beginners",
-    instructor: "Jenny Wilson",
-    price: 19,
-    category: "Design",
-    rating: 4.5,
-  },
-  // ...more
-];
+import { useLoaderData } from "react-router";
 
 const AllCourses = () => {
+  const courses = useLoaderData();
+
   return (
     <div>
       <section className="relative bg-gradient-to-r from-[#f9f9ff] to-[#f5f3ff] py-20">
@@ -75,7 +57,7 @@ const AllCourses = () => {
           <main className="flex-1">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-lg font-semibold text-gray-800">
-                Showing 250 Total Results
+                Showing {courses.length} Total Results
               </h2>
               <select className="border border-gray-300 rounded-md text-sm px-3 py-2">
                 <option>Most Popular</option>
@@ -85,12 +67,10 @@ const AllCourses = () => {
             </div>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {courses.map((c, i) => (
-                <CourseCard key={i} course={c} />
+              {courses.map((course) => (
+                <CourseCard key={course._id} course={course} />
               ))}
             </div>
-
-            {/* <Pagination /> */}
           </main>
         </div>
       </div>
