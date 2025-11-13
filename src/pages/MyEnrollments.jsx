@@ -5,55 +5,7 @@ import { AuthContext } from "../context/AuthContext";
 const MyEnrollments = () => {
   const { user } = use(AuthContext);
   const [courses, setcourses] = useState([]);
-  console.log(courses);
-
-  // const courses = [
-  //   {
-  //     id: 1,
-  //     title: "Learning JavaScript With Imagination",
-  //     category: "Development",
-  //     level: "Expert",
-  //     type: "Laravel Pro",
-  //     instructor: "David Millar",
-  //     rating: 4.8,
-  //     reviews: 22,
-  //     progress: 88,
-  //     image: "https://i.ibb.co.com/qL1J2b5d/demo-app-6.webp",
-  //     duration: "11h 20m",
-  //     lessons: 5,
-  //     students: 22,
-  //   },
-  //   {
-  //     id: 2,
-  //     title: "The Complete Graphic Design for Beginners",
-  //     category: "Design",
-  //     level: "Beginner",
-  //     type: "Crush Course",
-  //     instructor: "Wilson",
-  //     rating: 4.5,
-  //     reviews: 202,
-  //     progress: 70,
-  //     image: "https://i.ibb.co.com/qL1J2b5d/demo-app-6.webp",
-  //     duration: "70h 45m",
-  //     lessons: 60,
-  //     students: 202,
-  //   },
-  //   {
-  //     id: 3,
-  //     title: "Learning JavaScript With Imagination",
-  //     category: "Data Science",
-  //     level: "Marketing",
-  //     type: "Pro Expert",
-  //     instructor: "Warren",
-  //     rating: 4.8,
-  //     reviews: 66,
-  //     progress: 95,
-  //     image: "https://i.ibb.co.com/qL1J2b5d/demo-app-6.webp",
-  //     duration: "18h 20m",
-  //     lessons: 8,
-  //     students: 66,
-  //   },
-  // ];
+  // console.log(courses);
 
   useEffect(() => {
     if (user?.email) {

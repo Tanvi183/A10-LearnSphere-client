@@ -3,7 +3,8 @@ import { FaStar } from "react-icons/fa";
 import { Link, NavLink } from "react-router";
 
 function CourseCard({ course }) {
-  const { _id, title, category, instructor_name, price, image } = course;
+  const { _id, courseId, title, category, instructor_name, price, image } =
+    course;
 
   return (
     <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition duration-300 flex flex-col h-full">
@@ -43,7 +44,7 @@ function CourseCard({ course }) {
         {/* Bottom Section */}
         <div className="flex items-center justify-between mt-auto">
           <Link
-            to={`/coursesDetails/${_id}`}
+            to={`/coursesDetails/${courseId || _id}`}
             className="bg-yellow-400 text-gray-900 font-semibold px-4 py-2 rounded-full hover:bg-yellow-500 transition cursor-pointer"
           >
             View Details
