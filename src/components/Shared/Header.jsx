@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { use, useState } from "react";
 import logo from "../../assets/logo.svg";
 import { Link, NavLink } from "react-router";
 import ThemeToggle from "./ThemeToggle";
+import userImg from "../../assets/user.png";
 import {
   FaFacebookF,
   FaLinkedinIn,
@@ -14,9 +15,45 @@ import {
   FaTimes,
 } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
+import { AuthContext } from "../../context/AuthContext";
+import Swal from "sweetalert2";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { user, signOutUser, loading } = use(AuthContext);
+
+  const handleLogOut = () => {
+    Swal.fire({
+      title: "Are you sure you want to log out?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+      cancelButtonText: "Cancel",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        signOutUser()
+          .then(() => {
+            Swal.fire({
+              icon: "success",
+              title: "Logged Out!",
+              text: "You have been successfully logged out.",
+              showConfirmButton: false,
+              timer: 1500, // auto-close after 1.5 seconds
+            });
+          })
+          .catch((error) => {
+            console.error("Logout Error:", error);
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Something went wrong during logout. Please try again.",
+            });
+          });
+      }
+    });
+  };
 
   return (
     <header className="w-full">
@@ -98,22 +135,55 @@ export default function Header() {
               to="/dashboard"
               className={({ isActive }) =>
                 isActive
-                  ? "text-primary border-b-2 border-primary pb-1"
+                  ? "text-primary border-b-2 border-pritext-primary pb-1"
                   : "hover:text-yellow-500"
               }
             >
               Dashboard
             </NavLink>
+            {user && (
+              <NavLink
+                to="/profile"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-primary border-b-2 border-pritext-primary pb-1"
+                    : "hover:text-yellow-500"
+                }
+              >
+                Profile
+              </NavLink>
+            )}
           </nav>
 
           {/* Right Icons */}
-          <div className="hidden md:flex items-center gap-4">
+          <div className="hidden md:flex items-center gap-4 justify-center">
             <ThemeToggle />
-            <button className="btn-secondary">Log in</button>
+            {user ? (
+              <button
+                onClick={handleLogOut}
+                className="btn-secondary cursor-pointer"
+              >
+                Logout
+              </button>
+            ) : (
+              <Link to="/login" className="btn-secondary cursor-pointer">
+                Login
+              </Link>
+            )}
           </div>
 
           {/* Mobile Icon */}
           <div className="md:hidden flex items-center gap-3">
+            {loading ? null : (
+              <Link to={user ? "/profile" : "/login"}>
+                <img
+                  src={user?.photoURL || userImg}
+                  title={user?.displayName || "User"}
+                  alt="User"
+                  className="block md:hidden w-8 h-8 rounded-full cursor-pointer"
+                />
+              </Link>
+            )}
             <ThemeToggle />
             <button
               className="p-3 border border-gray-300 rounded-full"
@@ -173,12 +243,40 @@ export default function Header() {
               to="/dashboard"
               className={({ isActive }) =>
                 isActive
-                  ? "text-primary border-b-2 border-primary pb-1"
+                  ? "text-primary border-b-2 border-pritext-primary pb-1"
                   : "hover:text-yellow-500"
               }
             >
               Dashboard
             </NavLink>
+            {user && (
+              <NavLink
+                to="/profile"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-primary border-b-2 border-pritext-primary pb-1"
+                    : "hover:text-yellow-500"
+                }
+              >
+                Profile
+              </NavLink>
+            )}
+
+            {user ? (
+              <button
+                onClick={handleLogOut}
+                className="btn-secondary w-[40%] mt-4 cursor-pointer"
+              >
+                Logout
+              </button>
+            ) : (
+              <Link
+                to="/login"
+                className="btn-secondary w-[40%] mt-4 cursor-pointer"
+              >
+                Login
+              </Link>
+            )}
           </nav>
 
           {/* Social Icons */}

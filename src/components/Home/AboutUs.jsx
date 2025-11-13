@@ -17,7 +17,7 @@ const AboutUs = () => {
               animate={{ y: [0, -8, 0] }}
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             >
-              <img src={aboutShape} alt="" srcset="" />
+              <img src={aboutShape} alt="" />
             </motion.div>
             <div className="absolute inset-0 bg-yellow-100 rounded-full scale-130 -z-10" />
             <img
