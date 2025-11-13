@@ -10,6 +10,7 @@ import PrivateRoute from "./PrivateRoute";
 import DeshboardLayout from "../layouts/DeshboardLayout";
 import Deshboard from "../pages/Dashboard";
 import CourseDetails from "../pages/CourseDetails";
+import MyEnrollments from "../pages/MyEnrollments";
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
       {
         path: "profile",
         element: <Profile />,
+      },
+      {
+        path: "enrolled-courses",
+        element: <MyEnrollments />,
       },
     ],
   },

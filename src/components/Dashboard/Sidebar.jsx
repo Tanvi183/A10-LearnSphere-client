@@ -1,5 +1,5 @@
 import React, { use } from "react";
-import { FaHome, FaUser, FaSignOutAlt } from "react-icons/fa";
+import { FaHome, FaUser, FaSignOutAlt, FaBook } from "react-icons/fa";
 import { AuthContext } from "../../context/AuthContext";
 import Swal from "sweetalert2";
 import { NavLink } from "react-router";
@@ -45,6 +45,11 @@ const Sidebar = () => {
       title: "Dashboard",
       icon: <FaHome />,
       path: "/dashboard",
+    },
+    {
+      title: "Enrolled Courses",
+      icon: <FaBook />,
+      path: "/enrolled-courses",
     },
     {
       title: "My Profile",
