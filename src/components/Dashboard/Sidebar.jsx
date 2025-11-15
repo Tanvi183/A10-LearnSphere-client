@@ -1,11 +1,11 @@
-import React, { use } from "react";
 import { FaHome, FaUser, FaSignOutAlt, FaBook } from "react-icons/fa";
 import { AuthContext } from "../../context/AuthContext";
 import Swal from "sweetalert2";
 import { NavLink } from "react-router";
+import useAuth from "../../hooks/useAuth";
 
 const Sidebar = () => {
-  const { signOutUser } = use(AuthContext);
+  const { signOutUser } = useAuth();
 
   const handleLogOut = () => {
     Swal.fire({

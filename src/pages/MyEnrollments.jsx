@@ -2,10 +2,11 @@ import React, { use, useEffect, useState } from "react";
 import CourseCard from "../components/Courses/CourseCard";
 import { AuthContext } from "../context/AuthContext";
 import useTitle from "../hooks/useTitle";
+import useAuth from "../hooks/useAuth";
 
 const MyEnrollments = () => {
   useTitle("Enrolled Courses");
-  const { user } = use(AuthContext);
+  const { user } = useAuth();
   const [courses, setcourses] = useState([]);
   // console.log(courses);
 

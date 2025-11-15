@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { FaBook, FaFlag, FaStar } from "react-icons/fa";
-import SidebarFilters from "../components/Courses/SidebarFilters";
 import CourseCard from "../components/Courses/CourseCard";
 import { useLoaderData } from "react-router";
 import useTitle from "../hooks/useTitle";

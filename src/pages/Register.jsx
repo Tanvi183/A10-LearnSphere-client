@@ -1,14 +1,14 @@
-import React, { use, useState } from "react";
+import React, { useState } from "react";
 import { FaArrowRight, FaEye } from "react-icons/fa6";
 import { IoEyeOff } from "react-icons/io5";
 import { Link, useNavigate } from "react-router";
-import { AuthContext } from "../context/AuthContext";
 import toast from "react-hot-toast";
 import useTitle from "../hooks/useTitle";
+import useAuth from "../hooks/useAuth";
 
 const Register = () => {
   useTitle("Registration");
-  const { createUser, setUser, updateUser } = use(AuthContext);
+  const { createUser, setUser, updateUser } = useAuth();
 
   const [show, setShow] = useState(false);
   const [error, setError] = useState("");

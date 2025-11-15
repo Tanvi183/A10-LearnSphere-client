@@ -1,9 +1,8 @@
-import React, { use } from "react";
-import { AuthContext } from "../context/AuthContext";
 import useTitle from "../hooks/useTitle";
+import useAuth from "../hooks/useAuth";
 
 const Profile = () => {
-  const { user } = use(AuthContext);
+  const { user } = useAuth();
   useTitle("Profile");
 
   if (!user) {

@@ -1,22 +1,20 @@
-import React, { use, useState } from "react";
+import React, { useState } from "react";
 import { FaArrowRight } from "react-icons/fa6";
 import { Link, useLocation, useNavigate } from "react-router";
-import { AuthContext } from "../context/AuthContext";
 import toast from "react-hot-toast";
 import { FaEye } from "react-icons/fa";
 import { IoEyeOff } from "react-icons/io5";
 import useTitle from "../hooks/useTitle";
+import useAuth from "../hooks/useAuth";
 
 const Login = () => {
   useTitle("Login");
   const [show, setShow] = useState(false);
-  const { signIn } = use(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   // console.log(location);
-
-  const { signInWithGoogle, signInUser } = use(AuthContext);
+  const { signInWithGoogle, signInUser } = useAuth();
 
   const handleGoogleSignIn = () => {
     signInWithGoogle()

@@ -1,9 +1,9 @@
-import React, { use, useEffect, useRef, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import React, { useEffect, useRef, useState } from "react";
 import Swal from "sweetalert2";
+import useAuth from "../../hooks/useAuth";
 
 const Banner = () => {
-  const { user } = use(AuthContext);
+  const { user } = useAuth();
   const courseModelRef = useRef(null);
   const [category, setCategory] = useState([]);
   const [courses, setcourses] = useState([]);

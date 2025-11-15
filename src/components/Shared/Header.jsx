@@ -15,12 +15,12 @@ import {
   FaTimes,
 } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-import { AuthContext } from "../../context/AuthContext";
 import Swal from "sweetalert2";
+import useAuth from "../../hooks/useAuth";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { user, signOutUser, loading } = use(AuthContext);
+  const { user, signOutUser, loading } = useAuth();
 
   const handleLogOut = () => {
     Swal.fire({

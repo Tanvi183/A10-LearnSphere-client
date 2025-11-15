@@ -1,7 +1,7 @@
-import React, { use, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Link, useLoaderData, useNavigate } from "react-router";
-import { AuthContext } from "../context/AuthContext";
 import Swal from "sweetalert2";
+import useAuth from "../hooks/useAuth";
 
 const CourseDetails = () => {
   const {
@@ -17,10 +17,9 @@ const CourseDetails = () => {
     isFeatured,
     price,
   } = useLoaderData();
-  
 
   const enrollModalRef = useRef(null);
-  const { user } = use(AuthContext);
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [enrollment, setEnrollment] = useState([]);
 

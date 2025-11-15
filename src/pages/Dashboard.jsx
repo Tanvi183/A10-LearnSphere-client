@@ -1,20 +1,22 @@
-import React, { use, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import CourseCard from "../components/Courses/CourseCard";
-import { AuthContext } from "../context/AuthContext";
 import Swal from "sweetalert2";
 import useTitle from "../hooks/useTitle";
+import useAuth from "../hooks/useAuth";
 
 const Dashboard = () => {
   useTitle("My Courses");
-  const { user } = use(AuthContext);
+  const { user } = useAuth();
   const [courses, setCourses] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const editModalRef = useRef(null);
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:5000/courses?email=${user.email}`, {
-        headers: { "Content-Type": "application/json" },
+      fetch(`http://localhost:5000/user-courses?email=${user.email}`, {
+        headers: {
+          Authorization: `Bearer ${user.accessToken}`,
+        },
       })
         .then((res) => res.json())
         .then((data) => {
