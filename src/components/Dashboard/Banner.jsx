@@ -1,8 +1,107 @@
-import React, { use } from "react";
+import React, { use, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import Swal from "sweetalert2";
 
 const Banner = () => {
   const { user } = use(AuthContext);
+  const courseModelRef = useRef(null);
+  const [category, setCategory] = useState([]);
+  const [courses, setcourses] = useState([]);
+
+  // Load Category From Database
+  useEffect(() => {
+    if (user) {
+      fetch(`http://localhost:5000/category`, {
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          // console.log(data);
+          setCategory(data);
+        });
+    }
+  }, [user]);
+
+  // Course Create
+  const handleCreateCourse = (e) => {
+    e.preventDefault();
+    const form = e.target;
+
+    const title = form.title.value;
+    const image = form.image.value;
+    const price = Number(form.price.value);
+    const duration = form.duration.value;
+    const categoryValue = form.category.value;
+    const description = form.description.value;
+
+    const instructor_name = form.instructor_name.value;
+    const instructor_email = form.instructor_email.value;
+    const instructor_photo = form.instructor_photo.value;
+
+    const isFeatured = form.isFeatured.value === "true" ? true : false;
+
+    const createdBy = form.createdBy.value;
+    const createdAt = new Date().toISOString();
+
+    // Create Course Object
+    const newCourse = {
+      title,
+      image,
+      price,
+      duration,
+      category: categoryValue,
+      description,
+      instructor_name,
+      instructor_email,
+      instructor_photo,
+      isFeatured,
+      createdBy,
+      createdAt,
+    };
+
+    // SEND TO BACKEND
+    fetch("http://localhost:5000/courses", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newCourse),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        courseModelRef.current.close(); // CLOSE MODAL
+
+        if (data.courseId) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "New course added successfully!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+
+          // ADD TO STATE IF YOU KEEP LOCAL COURSE LIST
+          newCourse._id = data.courseId;
+          setcourses((prev) => [newCourse, ...prev]);
+        } else {
+          Swal.fire({
+            icon: "warning",
+            title: "Unexpected Response",
+            text: "Something went wrong. Please try again.",
+          });
+        }
+      })
+      .catch((error) => {
+        console.error("Course creation error:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Error!",
+          text: "Failed to create course. Please check backend.",
+        });
+      });
+  };
+
+  const couserModelHandle = () => {
+    courseModelRef.current.showModal();
+  };
 
   return (
     <div className="w-full flex justify-center items-center bg-gradient-to-b from-indigo-500 to-indigo-800 py-10 px-4">
@@ -36,11 +135,169 @@ const Banner = () => {
 
         {/* Right Section */}
         <div className="mt-8 md:mt-0 flex flex-col items-center md:items-end">
-          <button className="bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold px-6 py-3 rounded-full shadow-md flex items-center gap-2 transition">
+          <button
+            onClick={couserModelHandle}
+            className="bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold px-6 py-3 rounded-full shadow-md flex items-center gap-2 transition"
+          >
             Create A New Course
             <span className="text-xl">→</span>
           </button>
         </div>
+      </div>
+
+      {/* Course Create Modal */}
+      <div>
+        <dialog
+          ref={courseModelRef}
+          className="modal modal-bottom sm:modal-middle"
+        >
+          <div className="modal-box max-h-[90vh] overflow-y-auto">
+            <h3 className="text-xl font-bold text-indigo-700 mb-2">
+              Create New Course
+            </h3>
+            <p className="text-sm text-gray-600 mb-4">
+              Fill out the details below to add a new course.
+            </p>
+
+            <form onSubmit={handleCreateCourse} className="space-y-3">
+              {/* TITLE */}
+              <label className="label font-medium">Course Title</label>
+              <input
+                type="text"
+                name="title"
+                required
+                className="input input-bordered w-full"
+                placeholder="Digital Marketing Mastery"
+              />
+
+              {/* IMAGE URL */}
+              <label className="label font-medium">Thumbnail Image URL</label>
+              <input
+                type="text"
+                name="image"
+                required
+                className="input input-bordered w-full"
+                placeholder="https://example.com/image.jpg"
+              />
+
+              {/* PRICE & DURATION */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="label font-medium">Price (USD)</label>
+                  <input
+                    type="number"
+                    name="price"
+                    required
+                    className="input input-bordered w-full"
+                    placeholder="99.99"
+                  />
+                </div>
+
+                <div>
+                  <label className="label font-medium">Duration</label>
+                  <input
+                    type="text"
+                    name="duration"
+                    required
+                    className="input input-bordered w-full"
+                    placeholder="6 Weeks"
+                  />
+                </div>
+              </div>
+
+              {/* CATEGORY */}
+              <label className="label font-medium">Category</label>
+              <select
+                name="category"
+                required
+                className="select select-bordered w-full"
+              >
+                <option value="">Select a Category</option>
+                {category?.map((cat, index) => (
+                  <option key={index} value={cat.name}>
+                    {cat.name}
+                  </option>
+                ))}
+              </select>
+
+              {/* DESCRIPTION */}
+              <label className="label font-medium">Description</label>
+              <textarea
+                name="description"
+                required
+                className="textarea textarea-bordered w-full h-24"
+                placeholder="Write a short description..."
+              ></textarea>
+
+              {/* INSTRUCTOR INFO */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="label font-medium">Instructor Name</label>
+                  <input
+                    type="text"
+                    name="instructor_name"
+                    required
+                    className="input input-bordered w-full"
+                    placeholder="Sarah Miller"
+                  />
+                </div>
+
+                <div>
+                  <label className="label font-medium">Instructor Email</label>
+                  <input
+                    type="email"
+                    name="instructor_email"
+                    required
+                    className="input input-bordered w-full"
+                    placeholder="sarah@example.com"
+                  />
+                </div>
+              </div>
+
+              {/* INSTRUCTOR PHOTO */}
+              <label className="label font-medium">Instructor Photo URL</label>
+              <input
+                type="text"
+                name="instructor_photo"
+                required
+                className="input input-bordered w-full"
+                placeholder="https://example.com/photo.jpg"
+              />
+
+              {/* FEATURED */}
+              <label className="label font-medium">Featured Course?</label>
+              <select
+                name="isFeatured"
+                className="select select-bordered w-full"
+              >
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+              </select>
+
+              {/* CREATED BY – auto-fill admin */}
+              <label className="label font-medium">Created By</label>
+              <input
+                type="email"
+                name="createdBy"
+                readOnly
+                className="input input-bordered w-full bg-gray-100"
+                defaultValue={user?.email}
+              />
+
+              {/* SUBMIT BUTTON */}
+              <button type="submit" className="btn btn-primary w-full mt-4">
+                Create Course
+              </button>
+            </form>
+
+            {/* CANCEL BUTTON */}
+            <div className="modal-action">
+              <form method="dialog">
+                <button className="btn w-full">Cancel</button>
+              </form>
+            </div>
+          </div>
+        </dialog>
       </div>
     </div>
   );

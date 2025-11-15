@@ -1,10 +1,14 @@
 import React from "react";
 import { FaStar } from "react-icons/fa";
-import { Link, NavLink } from "react-router";
+import { Link, useLocation } from "react-router";
+import { FaTrash, FaEdit } from "react-icons/fa";
 
-function CourseCard({ course }) {
+function CourseCard({ course, handleDelete, handleEdit }) {
   const { _id, courseId, title, category, instructor_name, price, image } =
     course;
+
+  const location = useLocation();
+  const isDashboard = location.pathname.includes("/dashboard");
 
   return (
     <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition duration-300 flex flex-col h-full">
@@ -23,7 +27,7 @@ function CourseCard({ course }) {
           </div>
 
           <Link
-            to={`/coursesDetails/${_id}`}
+            to={`/coursesDetails/${courseId || _id}`}
             className="font-bold text-gray-900 text-lg leading-snug mb-2 line-clamp-2 min-h-[3rem]"
           >
             {title}
@@ -51,6 +55,25 @@ function CourseCard({ course }) {
           </Link>
           <p className="text-lg font-bold text-indigo-600">${price}</p>
         </div>
+
+        {/* Edit + Delete Buttons */}
+        {isDashboard && (
+          <div className="flex items-center justify-between mt-4">
+            <button
+              onClick={() => handleEdit(course)}
+              className="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition text-sm"
+            >
+              <FaEdit /> Edit
+            </button>
+
+            <button
+              onClick={() => handleDelete(course._id)}
+              className="flex items-center gap-2 bg-red-500 text-white px-4 py-2 rounded-full hover:bg-red-600 transition text-sm"
+            >
+              <FaTrash /> Delete
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

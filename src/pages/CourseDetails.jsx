@@ -168,12 +168,12 @@ const CourseDetails = () => {
             {/* Right Section */}
             <div className="flex flex-col justify-between">
               <div>
-                <Link
-                  to="/courses"
-                  className="text-sm text-gray-600 hover:text-purple-600 mb-2 inline-block"
+                <button
+                  onClick={() => navigate(-1)}
+                  className="text-sm text-gray-600 hover:text-purple-600 mb-2 inline-block cursor-pointer"
                 >
                   &larr; Back To Courses
-                </Link>
+                </button>
 
                 <h1 className="text-2xl font-bold text-gray-900 mb-1">
                   {title}
@@ -300,7 +300,7 @@ const CourseDetails = () => {
                     name="price"
                     className="input input-bordered w-full"
                     readOnly
-                    defaultValue={`$${price}`}
+                    defaultValue={`${price}`}
                   />
 
                   <label className="label font-medium">
