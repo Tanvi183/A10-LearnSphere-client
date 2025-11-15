@@ -3,9 +3,11 @@ import { FaBook, FaFlag, FaStar } from "react-icons/fa";
 import SidebarFilters from "../components/Courses/SidebarFilters";
 import CourseCard from "../components/Courses/CourseCard";
 import { useLoaderData } from "react-router";
+import useTitle from "../hooks/useTitle";
 
 const AllCourses = () => {
   const courses = useLoaderData();
+  useTitle("Courses");
 
   return (
     <div>

@@ -4,8 +4,10 @@ import { IoEyeOff } from "react-icons/io5";
 import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../context/AuthContext";
 import toast from "react-hot-toast";
+import useTitle from "../hooks/useTitle";
 
 const Register = () => {
+  useTitle("Registration");
   const { createUser, setUser, updateUser } = use(AuthContext);
 
   const [show, setShow] = useState(false);

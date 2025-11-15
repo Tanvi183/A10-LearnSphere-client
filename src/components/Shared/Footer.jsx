@@ -58,7 +58,7 @@ const Footer = () => {
 
       {/* Bottom: Copyright */}
       <div className="border-t border-base-300 py-4 text-center text-sm opacity-70">
-        © {new Date().getFullYear()} SkillGro — All rights reserved.
+        © {new Date().getFullYear()} LearnSphere — All rights reserved.
       </div>
     </footer>
   );

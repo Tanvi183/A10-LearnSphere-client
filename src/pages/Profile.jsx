@@ -1,8 +1,10 @@
 import React, { use } from "react";
 import { AuthContext } from "../context/AuthContext";
+import useTitle from "../hooks/useTitle";
 
 const Profile = () => {
   const { user } = use(AuthContext);
+  useTitle("Profile");
 
   if (!user) {
     return (

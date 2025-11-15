@@ -17,6 +17,7 @@ const CourseDetails = () => {
     isFeatured,
     price,
   } = useLoaderData();
+  
 
   const enrollModalRef = useRef(null);
   const { user } = use(AuthContext);
