@@ -7,7 +7,6 @@ const Footer = () => {
   return (
     <footer className="bg-base-200 text-base-content border-t border-base-300 transition-colors duration-500">
       <div className="max-w-7xl mx-auto px-6 lg:px-4 py-2 flex flex-col md:flex-row items-center justify-between gap-8">
-        {/* Left: Logo & Text */}
         <div className="flex flex-col items-center md:items-start text-center md:text-left">
           <div className="flex items-center gap-2 mb-2">
             <img src={logo} alt="SkillGro Logo" className="w-10 h-10" />
@@ -19,7 +18,7 @@ const Footer = () => {
           </p>
         </div>
 
-        {/* Middle: Social Links */}
+        {/*Social Links */}
         <div className="flex items-center gap-5">
           <a
             href="https://facebook.com"
@@ -56,7 +55,7 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Bottom: Copyright */}
+      {/* Copyright */}
       <div className="border-t border-base-300 py-4 text-center text-sm opacity-70">
         © {new Date().getFullYear()} LearnSphere — All rights reserved.
       </div>

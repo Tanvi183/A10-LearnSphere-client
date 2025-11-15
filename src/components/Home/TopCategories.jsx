@@ -1,23 +1,26 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 
-const categories = [
-  { name: "Graphic Design", count: 22, icon: "🎨" },
-  { name: "Finance", count: 41, icon: "💰" },
-  { name: "Development", count: 29, icon: "💻" },
-  { name: "Marketing", count: 31, icon: "📩" },
-  { name: "Life Style", count: 23, icon: "👠" },
-  { name: "Management", count: 19, icon: "👥" },
-];
-
 function TopCategories() {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
   const swiperRef = useRef(null);
+  const [category, setCategory] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/category", {
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log(data);
+        setCategory(data);
+      });
+  }, []);
 
   useEffect(() => {
     if (
@@ -64,16 +67,17 @@ function TopCategories() {
               }}
               className="pb-8"
             >
-              {categories.map((cat, i) => (
+              {category.map((cat, i) => (
                 <SwiperSlide key={i}>
                   <div className="flex flex-col items-center justify-center bg-white rounded-full w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 mx-auto border border-gray-100 shadow hover:shadow-md transition relative">
-                    <div className="text-4xl mb-2">{cat.icon}</div>
+                    {/* <div >{cat.icon}</div> */}
+                    <img className="max-w-15 mb-1" src={cat.icon} alt="" />
                     <h3 className="text-gray-800 font-semibold text-base md:text-lg">
                       {cat.name}
                     </h3>
-                    <p className="text-gray-500 text-xs md:text-sm mt-1">
+                    {/* <p className="text-gray-500 text-xs md:text-sm mt-1">
                       ({cat.count})
-                    </p>
+                    </p> */}
                   </div>
                 </SwiperSlide>
               ))}

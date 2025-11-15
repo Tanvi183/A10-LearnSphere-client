@@ -3,8 +3,8 @@ import CourseCard from "../Courses/CourseCard";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { use } from "react";
 
-const CoursesSection = ({ latestProductsPromise }) => {
-  const courses = use(latestProductsPromise);
+const CoursesSection = ({ productsPromise }) => {
+  const courses = use(productsPromise).data;
   // console.log(courses);
 
   return (

@@ -1,5 +1,4 @@
 import React from "react";
-import { FaStar } from "react-icons/fa";
 import { Link, useLocation } from "react-router";
 import { FaTrash, FaEdit } from "react-icons/fa";
 
@@ -12,12 +11,12 @@ function CourseCard({ course, handleDelete, handleEdit }) {
 
   return (
     <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition duration-300 flex flex-col h-full">
-      {/* Course Image Section */}
+      {/* Course Image */}
       <div className="relative h-55">
         <img src={image} alt={title} className="w-full h-full object-cover" />
       </div>
 
-      {/* Course Content Section */}
+      {/* Course Content */}
       <div className="p-5 flex flex-col flex-grow justify-between">
         <div>
           <div className="flex items-center justify-between mb-3">
@@ -45,7 +44,7 @@ function CourseCard({ course, handleDelete, handleEdit }) {
           </div>
         </div>
 
-        {/* Bottom Section */}
+        {/* Bottom */}
         <div className="flex items-center justify-between mt-auto">
           <Link
             to={`/coursesDetails/${courseId || _id}`}
