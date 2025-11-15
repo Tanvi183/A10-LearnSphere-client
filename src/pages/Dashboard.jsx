@@ -3,28 +3,23 @@ import CourseCard from "../components/Courses/CourseCard";
 import Swal from "sweetalert2";
 import useTitle from "../hooks/useTitle";
 import useAuth from "../hooks/useAuth";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const Dashboard = () => {
   useTitle("My Courses");
   const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
   const [courses, setCourses] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const editModalRef = useRef(null);
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:5000/user-courses?email=${user.email}`, {
-        headers: {
-          Authorization: `Bearer ${user.accessToken}`,
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          // console.log(data);
-          setCourses(data);
-        });
+      axiosSecure.get(`/user-courses?email=${user.email}`).then((data) => {
+        setCourses(data.data);
+      });
     }
-  }, [user]);
+  }, [user, axiosSecure]);
 
   const handleDeleteCourse = (id) => {
     Swal.fire({
@@ -37,18 +32,14 @@ const Dashboard = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/courses/${id}`, {
-          method: "DELETE",
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            if (data.result?.deletedCount > 0) {
-              Swal.fire("Deleted!", "Course removed.", "success");
-              setCourses((courses) =>
-                courses.filter((course) => course._id !== id)
-              );
-            }
-          });
+        axiosSecure.delete(`/courses/${id}`).then((data) => {
+          if (data.data.result?.deletedCount > 0) {
+            Swal.fire("Deleted!", "Course removed.", "success");
+            setCourses((courses) =>
+              courses.filter((course) => course._id !== id)
+            );
+          }
+        });
       }
     });
   };
@@ -70,14 +61,10 @@ const Dashboard = () => {
       description: form.description.value,
     };
 
-    fetch(`http://localhost:5000/courses/${selectedCourse._id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updatedCourse),
-    })
-      .then((res) => res.json())
+    axiosSecure
+      .patch(`/courses/${selectedCourse._id}`, updatedCourse)
       .then((data) => {
-        if (data.result?.modifiedCount > 0) {
+        if (data.data.result?.modifiedCount > 0) {
           Swal.fire({
             icon: "success",
             title: "Course updated successfully!",

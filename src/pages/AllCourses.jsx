@@ -4,6 +4,7 @@ import CourseCard from "../components/Courses/CourseCard";
 import useTitle from "../hooks/useTitle";
 import useAxios from "../hooks/useAxios";
 import Loading from "../components/Shared/Loading";
+import useAuth from "../hooks/useAuth";
 
 const AllCourses = () => {
   useTitle("Courses");
@@ -14,47 +15,48 @@ const AllCourses = () => {
   const [courses, setCourses] = useState(allCourses); // filtered courses
   const [activeCategory, setActiveCategory] = useState(null);
 
-  const [loadingCategory, setLoadingCategory] = useState(true);
-  const [loadingCourses, setLoadingCourses] = useState(true);
+  const { loading, setLoading } = useAuth();
 
   // Load Categories
   useEffect(() => {
-    setLoadingCategory(true);
+    setLoading(true);
 
     axiosInstance
       .get("/category")
       .then((res) => {
         setCategory(res.data);
-        setLoadingCategory(false);
+        setLoading(false);
       })
       .catch((err) => {
         console.error(err);
-        setLoadingCategory(false);
+        setLoading(false);
       });
-  }, []);
+  }, [axiosInstance, setLoading]);
 
   // All Courses
   useEffect(() => {
-    setLoadingCourses(true);
+    setLoading(true);
 
     axiosInstance
       .get("/courses")
       .then((res) => {
         setAllCourses(res.data);
         setCourses(res.data);
-        setLoadingCourses(false);
+        setLoading(false);
       })
       .catch((err) => {
         console.error(err);
-        setLoadingCourses(false);
+        setLoading(false);
       });
-  }, []);
+  }, [axiosInstance, setLoading]);
 
   // Filter courses when category changes
   useEffect(() => {
     if (activeCategory) {
       const filtered = allCourses.filter(
-        (course) => course.category === activeCategory
+        (course) =>
+          course.category?.toLowerCase().trim() ===
+          activeCategory?.toLowerCase().trim()
       );
       setCourses(filtered);
     } else {
@@ -62,7 +64,7 @@ const AllCourses = () => {
     }
   }, [activeCategory, allCourses]);
 
-  if (loadingCategory || loadingCourses) {
+  if (loading) {
     return <Loading />;
   }
 

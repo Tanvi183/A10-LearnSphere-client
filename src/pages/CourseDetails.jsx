@@ -1,9 +1,39 @@
-import React, { useRef, useState } from "react";
-import { Link, useLoaderData, useNavigate } from "react-router";
+import React, { useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router";
 import Swal from "sweetalert2";
 import useAuth from "../hooks/useAuth";
+import useAxiosSecure from "../hooks/useAxiosSecure";
+import Loading from "../components/Shared/Loading";
 
 const CourseDetails = () => {
+  const { id } = useParams();
+  const axiosSecure = useAxiosSecure();
+
+  const [course, setCourse] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const enrollModalRef = useRef(null);
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const [enrollment, setEnrollment] = useState([]);
+
+  useEffect(() => {
+    setLoading(true);
+    axiosSecure
+      .get(`/courses/${id}`)
+      .then((res) => {
+        setCourse(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, [axiosSecure, id]);
+
+  if (loading) return <Loading />;
+
+  // Destructure
   const {
     _id: courseId,
     title,
@@ -16,12 +46,7 @@ const CourseDetails = () => {
     instructor_photo,
     isFeatured,
     price,
-  } = useLoaderData();
-
-  const enrollModalRef = useRef(null);
-  const { user } = useAuth();
-  const navigate = useNavigate();
-  const [enrollment, setEnrollment] = useState([]);
+  } = course;
 
   const handleEnrollModalOpen = () => {
     if (!user) {
@@ -69,34 +94,29 @@ const CourseDetails = () => {
       status: "pending",
     };
 
-    fetch("http://localhost:5000/enrollment", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newEnroll),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        // console.log(data);
+    axiosSecure
+      .post("/enrollment", newEnroll)
+      .then((res) => {
         enrollModalRef.current.close();
 
-        if (data.insertedId) {
+        if (res.data.insertedId) {
           Swal.fire({
-            position: "top-end",
+            position: "center",
             icon: "success",
             title: "You're successfully enrolled!",
             showConfirmButton: false,
             timer: 1500,
           });
-          // add the new enrollment to the state
-          newEnroll._id = data.insertedId;
+
+          newEnroll._id = res.data.insertedId;
           const newEnrolls = [...enrollment, newEnroll];
           newEnrolls.sort((a, b) => b.price - a.price);
           setEnrollment(newEnrolls);
-        } else if (data.message === "Already enrolled in this course.") {
+        } else if (res.data.message === "Already enrolled in this course.") {
           Swal.fire({
             icon: "info",
             title: "Already Enrolled",
-            text: data.message,
+            text: res.data.message,
           });
         } else {
           Swal.fire({
@@ -106,12 +126,14 @@ const CourseDetails = () => {
           });
         }
       })
-      .catch((error) => {
-        console.error("Enrollment error:", error);
+      .catch((err) => {
+        console.error("Enrollment error:", err.response || err);
         Swal.fire({
           icon: "error",
           title: "Error!",
-          text: "Failed to enroll. Please check your backend connection.",
+          text:
+            err.response?.data?.message ||
+            "Failed to enroll. Please check your backend connection.",
         });
       });
   };

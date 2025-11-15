@@ -1,30 +1,33 @@
 import React, { useEffect, useRef, useState } from "react";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const Banner = () => {
   const { user } = useAuth();
+  const axiosInstance = useAxiosSecure();
   const courseModelRef = useRef(null);
   const [category, setCategory] = useState([]);
   const [courses, setcourses] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  // Load Category From Database
   useEffect(() => {
     if (user) {
-      fetch(`http://localhost:5000/category`, {
-        headers: { "Content-Type": "application/json" },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          // console.log(data);
-          setCategory(data);
+      axiosInstance
+        .get("/category")
+        .then((res) => {
+          setCategory(res.data);
+        })
+        .catch((err) => {
+          console.error(err);
         });
     }
-  }, [user]);
+  }, [user, axiosInstance]);
 
   // Course Create
   const handleCreateCourse = (e) => {
     e.preventDefault();
+    setLoading(true);
     const form = e.target;
 
     const title = form.title.value;
@@ -60,16 +63,13 @@ const Banner = () => {
     };
 
     // SEND TO BACKEND
-    fetch("http://localhost:5000/courses", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newCourse),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        courseModelRef.current.close(); // CLOSE MODAL
+    axiosInstance
+      .post("/courses", newCourse)
+      .then((res) => {
+        setLoading(false);
+        courseModelRef.current?.close();
 
-        if (data.courseId) {
+        if (res.data.courseId) {
           Swal.fire({
             position: "center",
             icon: "success",
@@ -78,9 +78,11 @@ const Banner = () => {
             timer: 1500,
           });
 
-          // ADD TO STATE IF YOU KEEP LOCAL COURSE LIST
-          newCourse._id = data.courseId;
-          setcourses((prev) => [newCourse, ...prev]);
+          // Add to state
+          setcourses((prev) => [
+            { ...newCourse, _id: res.data.courseId },
+            ...prev,
+          ]);
         } else {
           Swal.fire({
             icon: "warning",
@@ -89,8 +91,9 @@ const Banner = () => {
           });
         }
       })
-      .catch((error) => {
-        console.error("Course creation error:", error);
+      .catch((err) => {
+        setLoading(false);
+        console.error("Course creation error:", err);
         Swal.fire({
           icon: "error",
           title: "Error!",
@@ -286,7 +289,7 @@ const Banner = () => {
 
               {/* SUBMIT BUTTON */}
               <button type="submit" className="btn btn-primary w-full mt-4">
-                Create Course
+                {loading ? "Creating..." : "Create Course"}
               </button>
             </form>
 
