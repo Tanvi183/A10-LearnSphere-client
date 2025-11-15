@@ -1,16 +1,45 @@
-# React + Vite
+# Learnsphere
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Learnsphere** is an online learning platform built with **React**. It allows users to browse courses by category, view course details, and enroll in courses. The platform features a modern, responsive interface and a smooth user experience.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Live Demo
 
-## React Compiler
+_(Add your live URL here once deployed)_  
+[Live Demo](#)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## Key Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Browse Courses:** Explore all available courses in a clean, user-friendly interface.
+- **Category Filtering:** Easily filter courses by category.
+- **Course Details:** View full course details including description, instructor info, price, and duration.
+- **Enroll in Courses:** Users can enroll in courses with confirmation modals.
+- **Admin Panel:** Create and manage courses with detailed course info.
+- **Interactive UI:** Smooth animations and interactive elements using TailwindCSS, DaisyUI, and Framer Motion.
+- **Alerts & Notifications:** SweetAlert2 and React Hot Toast for confirmations, success messages, and error notifications.
+- **Responsive Design:** Fully responsive for mobile, tablet, and desktop screens.
+
+---
+
+## Technologies & Libraries Used
+
+- **Frontend:** React
+- **Styling:** TailwindCSS, DaisyUI
+- **Routing:** React Router
+- **Icons:** React Icons, Lucide React
+- **Animations:** Framer Motion, React Spring
+- **Alerts & Toasts:** SweetAlert2, React Hot Toast, React Toastify
+- **Carousel/Slider:** Swiper
+- **Authentication:** Firebase
+- **HTTP Requests:** Axios
+
+## Installation
+
+1. **Clone the repository**
+
+```bash
+git clone https://github.com/Tanvi183/A10-LearnSphere-client
+```
