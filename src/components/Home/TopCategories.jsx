@@ -4,23 +4,23 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
+import useAxios from "../../hooks/useAxios";
 
 function TopCategories() {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
   const swiperRef = useRef(null);
   const [category, setCategory] = useState([]);
+  const axiosInstance = useAxios();
 
   useEffect(() => {
-    fetch("http://localhost:5000/category", {
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        // console.log(data);
-        setCategory(data);
-      });
-  }, []);
+    axiosInstance
+      .get("/category")
+      .then((res) => {
+        setCategory(res.data);
+      })
+      .catch((err) => console.error(err));
+  }, [axiosInstance]);
 
   useEffect(() => {
     if (

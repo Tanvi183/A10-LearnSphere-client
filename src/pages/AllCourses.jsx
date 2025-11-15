@@ -1,24 +1,52 @@
 import React, { useEffect, useState } from "react";
 import { FaBook, FaFlag, FaStar } from "react-icons/fa";
 import CourseCard from "../components/Courses/CourseCard";
-import { useLoaderData } from "react-router";
 import useTitle from "../hooks/useTitle";
+import useAxios from "../hooks/useAxios";
+import Loading from "../components/Shared/Loading";
 
 const AllCourses = () => {
   useTitle("Courses");
-  const allCourses = useLoaderData();
+
+  const axiosInstance = useAxios();
   const [category, setCategory] = useState([]);
-  const [courses, setCourses] = useState(allCourses); // filtered courses state
+  const [allCourses, setAllCourses] = useState([]);
+  const [courses, setCourses] = useState(allCourses); // filtered courses
   const [activeCategory, setActiveCategory] = useState(null);
 
+  const [loadingCategory, setLoadingCategory] = useState(true);
+  const [loadingCourses, setLoadingCourses] = useState(true);
+
+  // Load Categories
   useEffect(() => {
-    fetch("http://localhost:5000/category", {
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        // console.log(data);
-        setCategory(data);
+    setLoadingCategory(true);
+
+    axiosInstance
+      .get("/category")
+      .then((res) => {
+        setCategory(res.data);
+        setLoadingCategory(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setLoadingCategory(false);
+      });
+  }, []);
+
+  // All Courses
+  useEffect(() => {
+    setLoadingCourses(true);
+
+    axiosInstance
+      .get("/courses")
+      .then((res) => {
+        setAllCourses(res.data);
+        setCourses(res.data);
+        setLoadingCourses(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setLoadingCourses(false);
       });
   }, []);
 
@@ -33,6 +61,10 @@ const AllCourses = () => {
       setCourses(allCourses);
     }
   }, [activeCategory, allCourses]);
+
+  if (loadingCategory || loadingCourses) {
+    return <Loading />;
+  }
 
   return (
     <div>
@@ -117,11 +149,6 @@ const AllCourses = () => {
               <h2 className="text-lg font-semibold ">
                 Showing {courses.length} Total Results
               </h2>
-              {/* <select className="border border-gray-300 rounded-md text-sm px-3 py-2">
-                <option>Most Popular</option>
-                <option>Highest Rated</option>
-                <option>Newest</option>
-              </select> */}
             </div>
 
             {courses.length > 0 ? (

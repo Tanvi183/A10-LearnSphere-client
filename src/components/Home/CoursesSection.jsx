@@ -1,10 +1,21 @@
 import { Link } from "react-router";
 import CourseCard from "../Courses/CourseCard";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import { use } from "react";
+import useAxios from "../../hooks/useAxios";
+import { useEffect, useState } from "react";
 
-const CoursesSection = ({ productsPromise }) => {
-  const courses = use(productsPromise).data;
+const CoursesSection = () => {
+  const axiosInstance = useAxios();
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    axiosInstance
+      .get("/latest-courses")
+      .then((res) => {
+        setCourses(res.data);
+      })
+      .catch((err) => console.error(err));
+  }, [axiosInstance]);
   // console.log(courses);
 
   return (
