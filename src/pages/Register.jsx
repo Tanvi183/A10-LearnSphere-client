@@ -78,13 +78,16 @@ const Register = () => {
             };
 
             //Send user data to MongoDB
-            fetch("http://localhost:5000/users", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(newUser),
-            })
+            fetch(
+              "https://learnsphere-online-learning-platfor.vercel.app/users",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(newUser),
+              }
+            )
               .then((res) => res.json())
               .then((data) => {
                 console.log("User saved to MongoDB:", data);

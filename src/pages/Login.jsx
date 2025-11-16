@@ -28,7 +28,7 @@ const Login = () => {
         };
 
         // Create user in the mongodb databse
-        fetch("http://localhost:5000/users", {
+        fetch("https://learnsphere-online-learning-platfor.vercel.app/users", {
           method: "POST",
           headers: {
             "content-type": "application/json",
