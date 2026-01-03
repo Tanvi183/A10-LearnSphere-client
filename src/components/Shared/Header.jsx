@@ -96,13 +96,13 @@ export default function Header() {
       </div>
 
       {/* Navbar */}
-      <div className="bg-white py-5 sticky top-0 z-50 shadow-sm">
+      <div className="bg-base-100 text-base-content transition-colors duration-500 py-5 sticky top-0 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto flex justify-between items-center px-8 lg:px-4">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 cursor-pointer">
             <img src={logo} alt="LearnSphere Logo" className="h-10 w-auto" />
             <div>
-              <h2 className="text-xl font-bold text-[#141047]">LearnSphere</h2>
+              <h2 className="text-xl font-bold">LearnSphere</h2>
               <p className="text-xs text-gray-500 -mt-1">
                 Learn. Grow. Succeed.
               </p>
@@ -110,7 +110,7 @@ export default function Header() {
           </Link>
 
           {/* Nav */}
-          <nav className="hidden md:flex gap-8 text-black font-medium">
+          <nav className="hidden md:flex gap-8 font-medium">
             <NavLink
               to="/"
               className={({ isActive }) =>
@@ -177,7 +177,7 @@ export default function Header() {
               className="p-3 border border-gray-300 rounded-full"
               onClick={() => setMenuOpen(true)}
             >
-              <FaBars className="text-[#141047]" />
+              <FaBars />
             </button>
           </div>
         </div>
@@ -185,7 +185,7 @@ export default function Header() {
 
       {/* Mobile Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-full w-72 bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 ${
+        className={`fixed top-0 left-0 h-full w-72 bg-base-100 shadow-lg transform transition-transform duration-300 ease-in-out z-50 ${
           menuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -193,20 +193,20 @@ export default function Header() {
           <div className="flex items-center gap-2">
             <img src={logo} alt="logo" className="h-8 w-auto" />
             <div>
-              <h2 className="text-lg font-bold text-[#141047]">LearnSphere</h2>
-              <p className="text-xs text-gray-500 -mt-1">
+              <h2 className="text-lg font-bold ">LearnSphere</h2>
+              <p className="text-xs text-gray-400 -mt-1">
                 Learn. Grow. Succeed.
               </p>
             </div>
           </div>
           <button onClick={() => setMenuOpen(false)}>
-            <FaTimes className="text-[#141047]" />
+            <FaTimes />
           </button>
         </div>
 
         <div className="p-4">
           {/* Menu Items */}
-          <nav className="flex flex-col gap-3 text-[#141047] font-medium">
+          <nav className="flex flex-col gap-3  font-medium">
             <NavLink
               to="/"
               className={({ isActive }) =>

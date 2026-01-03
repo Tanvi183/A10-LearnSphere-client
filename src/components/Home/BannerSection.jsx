@@ -62,7 +62,7 @@ const HeroSection = () => {
             src={bannerPerson}
             alt="Student"
             className="relative w-[320px] sm:w-[400px] lg:w-[480px] z-10"
-            animate={{ y: [0, -10, 0] }}
+            // animate={{ y: [0, -10, 0] }}
             transition={{
               duration: 4,
               repeat: Infinity,
