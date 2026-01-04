@@ -91,7 +91,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto p-4 md:p-6">
+    <div className="mx-10 mt-10">
       <h2 className="text-xl font-semibold mb-6">
         My added courses ({courses.length})
       </h2>
