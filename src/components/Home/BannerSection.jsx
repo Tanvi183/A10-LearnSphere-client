@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import bannerPerson from "../../assets/banner_img.png";
 import { IoIosClose } from "react-icons/io";
 import { IoIosPeople } from "react-icons/io";
+import { Link } from "react-router";
 
 const HeroSection = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,13 +26,15 @@ const HeroSection = () => {
           </h1>
 
           <div className="mt-8 flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
-            <motion.button
-              whileHover={{ scale: 1.0 }}
-              whileTap={{ scale: 0.95 }}
-              className="btn-primary cursor-pointer"
-            >
-              Start Free Trial →
-            </motion.button>
+            <Link to="/contact">
+              <motion.button
+                whileHover={{ scale: 1.0 }}
+                whileTap={{ scale: 0.95 }}
+                className="btn-primary cursor-pointer"
+              >
+                Start Free Trial →
+              </motion.button>
+            </Link>
 
             {/* Play Button */}
             <div

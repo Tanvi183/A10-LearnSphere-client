@@ -36,15 +36,15 @@ const TestimonialSection = () => {
       <div className="max-w-[1320px] mx-auto px-4">
         <div className="text-center mb-14">
           <span className="bg-indigo-100 text-indigo-700 text-sm font-semibold px-4 py-1 rounded-full">
-            Testimonials
+            Our Testimonials
           </span>
 
           <h2 className="text-3xl md:text-4xl font-bold mt-4 leading-tight">
-            What Our Students Say
+            What Students Think and Say <br />
+            About SkillGrow
           </h2>
           <p className="mt-4 text-[16px] leading-[26px] max-w-2xl mx-auto">
-            Hear from learners who have transformed their careers through our
-            courses
+            when known printer took a galley of type scrambl edmake
           </p>
         </div>
 

@@ -1,16 +1,13 @@
 import React from "react";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import { FaTrash, FaEdit, FaDollarSign } from "react-icons/fa";
 
-function CourseCard({
-  course,
-  // handleDelete, handleEdit
-}) {
+function CourseCard({ course, handleDelete, handleEdit }) {
   const { _id, courseId, title, category, instructor_name, price, image } =
     course;
 
-  // const location = useLocation();
-  // const isDashboard = location.pathname.includes("/dashboard");
+  const location = useLocation();
+  const isDashboard = location.pathname.includes("/dashboard");
 
   return (
     <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition overflow-hidden flex flex-col group">
@@ -62,7 +59,7 @@ function CourseCard({
         </div>
 
         {/* Dashboard Actions */}
-        {/* {isDashboard && (
+        {isDashboard && (
           <div className="flex gap-2 pt-2 border-t">
             <button
               onClick={() => handleEdit(course)}
@@ -80,7 +77,7 @@ function CourseCard({
               <FaTrash /> Delete
             </button>
           </div>
-        )} */}
+        )}
       </div>
     </div>
   );

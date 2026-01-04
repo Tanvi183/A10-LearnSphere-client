@@ -4,10 +4,12 @@ import Swal from "sweetalert2";
 import useAuth from "../hooks/useAuth";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import Loading from "../components/Shared/Loading";
+import useAxios from "../hooks/useAxios";
 
 const CourseDetails = () => {
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
+  const axiosInstance = useAxios();
 
   const [course, setCourse] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -19,7 +21,7 @@ const CourseDetails = () => {
 
   useEffect(() => {
     setLoading(true);
-    axiosSecure
+    axiosInstance
       .get(`/courses/${id}`)
       .then((res) => {
         setCourse(res.data);
@@ -29,7 +31,7 @@ const CourseDetails = () => {
         console.error(err);
         setLoading(false);
       });
-  }, [axiosSecure, id]);
+  }, [axiosInstance, id]);
 
   if (loading) return <Loading />;
 
@@ -142,7 +144,7 @@ const CourseDetails = () => {
     <div>
       {/* product info */}
       <div>
-        <div className="bg-gray-50 flex justify-center items-center py-10 px-4">
+        <div className="bg-gray-50 flex justify-center items-center py-20 px-4">
           <div className="bg-white rounded-lg shadow-md w-full max-w-7xl grid md:grid-cols-2 gap-6 p-6">
             {/* Left Section */}
             <div>

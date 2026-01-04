@@ -12,6 +12,7 @@ import Deshboard from "../pages/Dashboard";
 import CourseDetails from "../pages/CourseDetails";
 import MyEnrollments from "../pages/MyEnrollments";
 import Blogs from "../pages/Blogs";
+import ContactPage from "../pages/ContactPage";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
         element: <Blogs />,
       },
       {
+        path: "contact",
+        element: <ContactPage />,
+      },
+      {
         path: "login",
         element: <Login />,
       },
@@ -40,11 +45,7 @@ const router = createBrowserRouter([
       },
       {
         path: "coursesDetails/:id",
-        element: (
-          <PrivateRoute>
-            <CourseDetails />
-          </PrivateRoute>
-        ),
+        element: <CourseDetails />,
       },
     ],
   },

@@ -143,6 +143,17 @@ export default function Header() {
               Blogs
             </NavLink>
 
+            <NavLink
+              to="/contact"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-primary border-b-2 border-pritext-primary pb-1"
+                  : "hover:text-yellow-500"
+              }
+            >
+              Contact
+            </NavLink>
+
             {user && (
               <>
                 <NavLink
@@ -252,6 +263,28 @@ export default function Header() {
               }
             >
               Courses
+            </NavLink>
+
+            <NavLink
+              to="/blogs"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-primary border-b-2 border-pritext-primary pb-1"
+                  : "hover:text-yellow-500"
+              }
+            >
+              Blogs
+            </NavLink>
+
+            <NavLink
+              to="/contact"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-primary border-b-2 border-pritext-primary pb-1"
+                  : "hover:text-yellow-500"
+              }
+            >
+              Contact
             </NavLink>
 
             {user && (

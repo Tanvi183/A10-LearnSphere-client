@@ -8,17 +8,16 @@ import {
   FaEnvelope,
   FaPhoneAlt,
 } from "react-icons/fa";
-import logo from "../../assets/logo.svg"; 
+import logo from "../../assets/logo.svg";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#f7f7fb] text-gray-800 border-t border-gray-200 transition-colors duration-500">
+    <footer className="bg-base-100  border-t border-gray-200 transition-colors duration-500">
       <div className="max-w-7xl mx-auto px-6 lg:px-4 py-12 grid md:grid-cols-4 gap-12">
-
         <div className="flex flex-col items-center md:items-start text-center md:text-left gap-4">
           <div className="flex items-center gap-2 mb-2">
             <img src={logo} alt="LearnSphere Logo" className="w-10 h-10" />
-            <h2 className="text-2xl font-bold text-indigo-600">LearnSphere</h2>
+            <h2 className="text-2xl font-bold ">LearnSphere</h2>
           </div>
           <p className="text-sm opacity-80 max-w-sm">
             Empowering learners and educators through engaging, modern, and
@@ -26,25 +25,23 @@ const Footer = () => {
           </p>
         </div>
 
- 
         <div className="flex flex-col gap-3 text-center md:text-left">
           <h3 className="text-lg font-semibold mb-2">Quick Links</h3>
           <nav className="flex flex-col gap-2">
-            <a href="/" className="hover:text-indigo-600 transition">
+            <a href="/" className="hover:text-primary transition">
               Home
             </a>
-            <a href="/courses" className="hover:text-indigo-600 transition">
+            <a href="/courses" className="hover:text-primary transition">
               Courses
             </a>
-            <a href="/blogs" className="hover:text-indigo-600 transition">
+            <a href="/blogs" className="hover:text-primary transition">
               Blogs
             </a>
-            <a href="/dashboard" className="hover:text-indigo-600 transition">
+            <a href="/dashboard" className="hover:text-primary transition">
               Dashboard
             </a>
           </nav>
         </div>
-
 
         <div className="flex flex-col gap-3 text-center md:text-left">
           <h3 className="text-lg font-semibold mb-2">Contact Us</h3>
@@ -54,32 +51,21 @@ const Footer = () => {
           </div>
           <div className="flex items-center gap-2">
             <FaEnvelope className="text-indigo-600" />
-            <a
-              href="mailto:mneshat7@gmail.com"
-              className="hover:text-indigo-600 transition"
-            >
-              mneshat7@gmail.com
-            </a>
+            mneshat7@gmail.com
           </div>
           <div className="flex items-center gap-2">
             <FaPhoneAlt className="text-indigo-600" />
-            <a
-              href="tel:+8801837889646"
-              className="hover:text-indigo-600 transition"
-            >
-              +880 1837 889646
-            </a>
+            +880 1837 889646
           </div>
         </div>
 
-     
         <div className="flex flex-col gap-3 items-center md:items-start text-center md:text-left">
           <div className="flex gap-3 mt-4">
             <a
               href="https://facebook.com"
               target="_blank"
               rel="noreferrer"
-              className="p-3 rounded-full bg-white hover:bg-indigo-50 transition text-indigo-600"
+              className="p-3 rounded-full bg-indigo-200 hover:bg-indigo-300 transition text-indigo-600"
             >
               <FaFacebookF size={18} />
             </a>
@@ -87,7 +73,7 @@ const Footer = () => {
               href="https://twitter.com"
               target="_blank"
               rel="noreferrer"
-              className="p-3 rounded-full bg-white hover:bg-indigo-50 transition text-indigo-600"
+              className="p-3 rounded-full bg-indigo-200 hover:bg-indigo-300 transition text-indigo-600"
             >
               <FaTwitter size={18} />
             </a>
@@ -95,7 +81,7 @@ const Footer = () => {
               href="https://instagram.com"
               target="_blank"
               rel="noreferrer"
-              className="p-3 rounded-full bg-white hover:bg-indigo-50 transition text-indigo-600"
+              className="p-3 rounded-full bg-indigo-200 hover:bg-indigo-300 transition text-indigo-600"
             >
               <FaInstagram size={18} />
             </a>
@@ -103,7 +89,7 @@ const Footer = () => {
               href="https://linkedin.com"
               target="_blank"
               rel="noreferrer"
-              className="p-3 rounded-full bg-white hover:bg-indigo-50 transition text-indigo-600"
+              className="p-3 rounded-full bg-indigo-200 hover:bg-indigo-300 transition text-indigo-600"
             >
               <FaLinkedinIn size={18} />
             </a>
