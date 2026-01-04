@@ -9,8 +9,11 @@ import {
   FaBook,
 } from "react-icons/fa";
 import toast, { Toaster } from "react-hot-toast";
+import useTitle from "../hooks/useTitle";
 
 const ContactPage = () => {
+  useTitle("Contact");
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",

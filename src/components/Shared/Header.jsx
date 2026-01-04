@@ -21,6 +21,7 @@ import useAuth from "../../hooks/useAuth";
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { user, signOutUser, loading } = useAuth();
+  const [profileOpen, setProfileOpen] = useState(false);
 
   const handleLogOut = () => {
     Swal.fire({
@@ -166,16 +167,6 @@ export default function Header() {
                 >
                   Dashboard
                 </NavLink>
-                <NavLink
-                  to="/profile"
-                  className={({ isActive }) =>
-                    isActive
-                      ? "text-primary border-b-2 border-pritext-primary pb-1"
-                      : "hover:text-yellow-500"
-                  }
-                >
-                  Profile
-                </NavLink>
               </>
             )}
           </nav>
@@ -183,13 +174,42 @@ export default function Header() {
           {/* Right Icons */}
           <div className="hidden md:flex items-center gap-4 justify-center">
             <ThemeToggle />
+
             {user ? (
-              <button
-                onClick={handleLogOut}
-                className="btn-secondary cursor-pointer"
-              >
-                Logout
-              </button>
+              <div className="relative">
+                <button
+                  onClick={() => setProfileOpen((prev) => !prev)}
+                  className="flex items-center gap-2 hover:text-yellow-500 focus:outline-none"
+                >
+                  <img
+                    src={user.photoURL}
+                    alt={user.displayName || "User"}
+                    className="w-10 h-10 rounded-full border-4 border-white object-cover cursor-pointer"
+                  />
+                </button>
+
+                {profileOpen && (
+                  <div className="absolute right-0 mt-2 w-35 bg-white shadow-lg rounded-lg border border-gray-200 z-50">
+                    <NavLink
+                      to="/profile"
+                      className="block px-4 py-2 hover:bg-gray-100 text-gray-900"
+                      onClick={() => setProfileOpen(false)}
+                    >
+                      Profile
+                    </NavLink>
+
+                    <button
+                      onClick={() => {
+                        handleLogOut();
+                        setProfileOpen(false);
+                      }}
+                      className="w-full text-left px-4 py-2 hover:bg-gray-100 text-gray-900"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
             ) : (
               <Link to="/login" className="btn-secondary cursor-pointer">
                 Login
