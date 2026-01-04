@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "https://learnsphere-online-learning-platfor.vercel.app",
+  baseURL: "http://localhost:5000",
+  // baseURL: "https://learnsphere-online-learning-platfor.vercel.app",
 });
 
 const useAxios = () => {

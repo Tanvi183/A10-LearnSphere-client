@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 const AboutUs = () => {
   return (
-    <section className="py-16 bg-base-100 text-base-content transition-colors duration-500">
+    <section className="py-21 bg-base-100 text-base-content transition-colors duration-500">
       <div className="max-w-7xl mx-auto px-6 lg:px-4 flex flex-col md:flex-row items-center justify-between">
         {/* Left Side: Image */}
         <div className="relative flex justify-center md:w-1/2 mb-10 md:mb-0">
@@ -34,7 +34,7 @@ const AboutUs = () => {
             Get More About Us
           </button>
 
-          <h2 className="text-3xl md:text-4xl font-extrabold leading-snug mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold leading-snug mb-4">
             Thousand Of Top
             <span className="bg-yellow-300 px-2 py-1 rounded-md">Courses</span>
             Now In One Place

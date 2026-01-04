@@ -113,7 +113,7 @@ const AllCourses = () => {
 
       <div className="min-h-screen py-10 px-6">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8">
-          <aside className="hidden lg:block w-64 bg-white border border-gray-200 rounded-xl p-6 h-fit shadow-sm">
+          <aside className="hidden lg:block w-60 bg-white border border-gray-200 rounded-xl p-6 h-fit shadow-sm">
             <h3 className="font-semibold text-gray-800 mb-4">Categories</h3>
             {category.length > 0 ? (
               <ul className="space-y-2 text-gray-700">
@@ -154,7 +154,7 @@ const AllCourses = () => {
             </div>
 
             {courses.length > 0 ? (
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
                 {courses.map((course) => (
                   <CourseCard key={course._id} course={course} />
                 ))}

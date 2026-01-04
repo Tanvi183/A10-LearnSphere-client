@@ -19,12 +19,13 @@ const CoursesSection = () => {
   // console.log(courses);
 
   return (
-    <section className="py-16">
+    <section className="py-20">
       <div className="max-w-7xl mx-auto px-4 ">
         <div className="text-center pb-10">
           <span className="bg-indigo-100 text-indigo-700 text-sm font-semibold px-4 py-1 rounded-full">
             Top Class Courses
           </span>
+
           <h2 className="text-3xl md:text-4xl font-bold mt-4">
             Explore Our World's Best Courses
           </h2>
@@ -33,7 +34,7 @@ const CoursesSection = () => {
           </p>
         </div>
 
-        <div className="mt-10  grid sm:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        <div className="mt-10  grid sm:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
           {courses.map((course) => (
             <CourseCard key={course._id} course={course} />
           ))}

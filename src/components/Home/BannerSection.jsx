@@ -14,7 +14,7 @@ const HeroSection = () => {
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 1.0 }}
           className="text-center lg:text-left z-10"
         >
           <h1 className="text-4xl lg:text-5xl font-extrabold leading-tight">
@@ -26,9 +26,9 @@ const HeroSection = () => {
 
           <div className="mt-8 flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
             <motion.button
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.0 }}
               whileTap={{ scale: 0.95 }}
-              className="btn-primary"
+              className="btn-primary cursor-pointer"
             >
               Start Free Trial →
             </motion.button>

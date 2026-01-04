@@ -6,7 +6,7 @@ import ScrollToTopButton from "../components/Shared/ScrollToTopButton";
 
 const MainLayout = () => {
   return (
-    <div>
+    <div className="pt-[140px]">
       <Header></Header>
       <Outlet></Outlet>
       <Footer></Footer>

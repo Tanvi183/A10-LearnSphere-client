@@ -11,6 +11,7 @@ import DeshboardLayout from "../layouts/DeshboardLayout";
 import Deshboard from "../pages/Dashboard";
 import CourseDetails from "../pages/CourseDetails";
 import MyEnrollments from "../pages/MyEnrollments";
+import Blogs from "../pages/Blogs";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "courses",
         element: <AllCourses />,
+      },
+      {
+        path: "blogs",
+        element: <Blogs />,
       },
       {
         path: "login",

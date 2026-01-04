@@ -43,7 +43,7 @@ function TopCategories() {
           <span className="bg-purple-100 text-purple-700 text-sm font-semibold px-4 py-1 rounded-full">
             Trending Categories
           </span>
-          <h2 className="text-3xl md:text-4xl font-extrabold mt-4">
+          <h2 className="text-3xl md:text-4xl font-bold mt-4">
             Top Category We Have
           </h2>
           <p className="mt-2 text-sm md:text-base text-gray-500">

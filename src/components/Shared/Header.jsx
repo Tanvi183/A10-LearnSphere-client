@@ -56,7 +56,7 @@ export default function Header() {
   };
 
   return (
-    <header className="w-full">
+    <header className="w-full fixed top-0 left-0 z-50">
       {/* Top Bar */}
       <div className="hidden lg:flex bg-primary py-4 text-white text-sm">
         <div className="max-w-7xl mx-auto w-full flex justify-between items-center px-4">
@@ -96,7 +96,7 @@ export default function Header() {
       </div>
 
       {/* Navbar */}
-      <div className="bg-base-100 text-base-content transition-colors duration-500 py-5 sticky top-0 z-50 shadow-sm">
+      <div className="bg-base-100 text-base-content transition-colors duration-500 py-5 shadow-sm">
         <div className="max-w-7xl mx-auto flex justify-between items-center px-8 lg:px-4">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 cursor-pointer">
@@ -131,16 +131,42 @@ export default function Header() {
             >
               Courses
             </NavLink>
+
             <NavLink
-              to="/dashboard"
+              to="/blogs"
               className={({ isActive }) =>
                 isActive
                   ? "text-primary border-b-2 border-pritext-primary pb-1"
                   : "hover:text-yellow-500"
               }
             >
-              Dashboard
+              Blogs
             </NavLink>
+
+            {user && (
+              <>
+                <NavLink
+                  to="/dashboard"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-primary border-b-2 border-pritext-primary pb-1"
+                      : "hover:text-yellow-500"
+                  }
+                >
+                  Dashboard
+                </NavLink>
+                <NavLink
+                  to="/profile"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-primary border-b-2 border-pritext-primary pb-1"
+                      : "hover:text-yellow-500"
+                  }
+                >
+                  Profile
+                </NavLink>
+              </>
+            )}
           </nav>
 
           {/* Right Icons */}
@@ -227,16 +253,31 @@ export default function Header() {
             >
               Courses
             </NavLink>
-            <NavLink
-              to="/dashboard"
-              className={({ isActive }) =>
-                isActive
-                  ? "text-primary border-b-2 border-pritext-primary pb-1"
-                  : "hover:text-yellow-500"
-              }
-            >
-              Dashboard
-            </NavLink>
+
+            {user && (
+              <>
+                <NavLink
+                  to="/dashboard"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-primary border-b-2 border-pritext-primary pb-1"
+                      : "hover:text-yellow-500"
+                  }
+                >
+                  Dashboard
+                </NavLink>
+                <NavLink
+                  to="/profile"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-primary border-b-2 border-pritext-primary pb-1"
+                      : "hover:text-yellow-500"
+                  }
+                >
+                  Profile
+                </NavLink>
+              </>
+            )}
           </nav>
 
           {/* Social Icons */}
