@@ -1,42 +1,93 @@
+import React from "react";
+import { FaUserAlt, FaEnvelope, FaRegAddressCard } from "react-icons/fa";
+import Swal from "sweetalert2";
 import useTitle from "../hooks/useTitle";
+import useAxiosSecure from "../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 import useAuth from "../hooks/useAuth";
 
 const Profile = () => {
-  const { user } = useAuth();
   useTitle("Profile");
+  const { user } = useAuth();
+  console.log(user);
 
-  if (!user) {
-    return (
-      <div className="flex justify-center items-center min-h-[60vh]">
-        <p className="text-gray-500 text-sm">Loading profile...</p>
-      </div>
-    );
+  const axiosInstance = useAxiosSecure();
+
+  const { data: profileData = {}, isLoading } = useQuery({
+    queryKey: ["users", user?.email],
+    enabled: !!user?.email,
+    queryFn: async () => {
+      const res = await axiosInstance.get(`/users?email=${user.email}`);
+      return res.data;
+    },
+  });
+
+  if (isLoading) {
+    return <div className="mx-10">Loading profile...</div>;
   }
 
-  const { displayName, email, role } = user;
-
   return (
-    <div className="bg-white rounded-2xl shadow-sm p-6 sm:p-8 max-w-5xl mx-auto border border-gray-100">
-      {/* Profile Info */}
-      <div className="space-y-4 text-sm">
-        <div className="flex flex-col sm:flex-row sm:items-start sm:gap-6">
-          <span className="w-40 text-gray-500 font-medium">Full Name</span>
-          <span className="text-gray-800 leading-relaxed">{displayName}</span>
-        </div>
+    <div className="mx-10">
+      <h1 className="text-2xl font-semibold my-6">My Profile</h1>
 
-        <div className="flex flex-col sm:flex-row sm:items-start sm:gap-6">
-          <span className="w-40 text-gray-500 font-medium">Email</span>
-          <span className="text-gray-800 leading-relaxed">{email}</span>
-        </div>
+      <div className="card bg-base-200 shadow-md">
+        <div className="card-body">
+          <div className="flex flex-col sm:flex-row items-center gap-6">
+            <div className="avatar">
+              <div className="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                <img
+                  src={profileData.photo || user.photoURL}
+                  alt="User Avatar"
+                />
+              </div>
+            </div>
 
-        {role && (
-          <div className="flex flex-col sm:flex-row sm:items-start sm:gap-6">
-            <span className="w-40 text-gray-500 font-medium">Role</span>
-            <span className="text-gray-800 leading-relaxed capitalize">
-              {role}
-            </span>
+            <div className="text-center sm:text-left">
+              <h2 className="text-xl font-bold mb-2">
+                Name: {profileData.name || user.displayName}
+              </h2>
+              <p className="text-gray-500 flex items-center gap-2 justify-center sm:justify-start mb-4">
+                <FaEnvelope />
+                Email : {profileData.email || user.email}
+              </p>
+              <p className="text-gray-500 flex items-center gap-2 justify-center sm:justify-start">
+                <FaRegAddressCard />
+                Address : {profileData.address || "No address provided"}
+              </p>
+            </div>
           </div>
-        )}
+
+          <div className="divider"></div>
+
+          {/* Profile Info */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="flex items-center gap-3">
+              <FaUserAlt className="text-primary" />
+              <span className="font-medium">Account Type:</span>
+              <span>{profileData.role || "User"}</span>
+            </div>
+
+            {/* <div className="flex items-center gap-3">
+              <span className="font-medium">Status:</span>
+              <span
+                className={`badge ${
+                  status === "active" ? "badge-success" : "badge-error"
+                }`}
+              >
+                {status}
+              </span>
+            </div> */}
+
+            <div className="flex items-center gap-3">
+              <span className="font-medium">Joined:</span>
+              <span>
+                {profileData.createdAt
+                  ? new Date(profileData.createdAt).toLocaleDateString()
+                  : "N/A"}
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

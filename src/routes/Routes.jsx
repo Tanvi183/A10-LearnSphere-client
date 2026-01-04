@@ -13,6 +13,9 @@ import CourseDetails from "../pages/CourseDetails";
 import MyEnrollments from "../pages/MyEnrollments";
 import Blogs from "../pages/Blogs";
 import ContactPage from "../pages/ContactPage";
+import DeshboardLayout2 from "../layouts/DeshboardLayout2";
+import DashboardHome from "../pages/Deshboard/DashboardHome";
+import Dashboard from "../pages/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -53,13 +56,13 @@ const router = createBrowserRouter([
     path: "/",
     element: (
       <PrivateRoute>
-        <DeshboardLayout />
+        <DeshboardLayout2 />
       </PrivateRoute>
     ),
     children: [
       {
         path: "dashboard",
-        element: <Deshboard />,
+        element: <DashboardHome />,
       },
       {
         path: "profile",
@@ -68,6 +71,10 @@ const router = createBrowserRouter([
       {
         path: "enrolled-courses",
         element: <MyEnrollments />,
+      },
+      {
+        path: "my-courses",
+        element: <Dashboard />,
       },
     ],
   },
