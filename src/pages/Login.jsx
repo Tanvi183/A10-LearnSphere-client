@@ -129,11 +129,12 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Email"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+              className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none 
+    border-gray-300 text-gray-900 dark:border-gray-600 dark:text-white dark:bg-gray-800 dark:placeholder-gray-400"
             />
           </div>
 
-          <div className="mb-4 text-left">
+          <div className="mb-4 text-left relative">
             <label
               htmlFor="password"
               className="block text-gray-700 font-semibold mb-1"
@@ -145,12 +146,12 @@ const Login = () => {
               type={show ? "text" : "password"}
               id="password"
               placeholder="Password"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none"
-              required
+              className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none
+    border-gray-300 text-gray-900 dark:border-gray-600 dark:text-white dark:bg-gray-800 dark:placeholder-gray-400"
             />
             <span
               onClick={() => setShow(!show)}
-              className="absolute right-[28px] top-[32px] cursor-pointer z-50"
+              className="absolute right-[28px] top-[40px] cursor-pointer z-50 text-gray-500 dark:text-gray-400 transition-colors duration-300"
             >
               {show ? <FaEye /> : <IoEyeOff />}
             </span>
@@ -161,10 +162,19 @@ const Login = () => {
               <input type="checkbox" className="mr-2" />
               Remember me
             </label>
-            <a href="#" className="text-sm text-indigo-500 hover:underline">
-              Forgot Password?
-            </a>
           </div>
+
+          <button
+            type="button"
+            onClick={() => {
+              setEmail("sanaullah@gmail.com");
+              setShow(true);
+              document.getElementById("password").value = "Sana183";
+            }}
+            className="mb-6 w-full flex justify-center items-center gap-2 bg-yellow-400 hover:bg-yellow-500 text-white font-semibold py-2 rounded-md transition cursor-pointer"
+          >
+            Use Demo Credentials
+          </button>
 
           <button
             type="submit"

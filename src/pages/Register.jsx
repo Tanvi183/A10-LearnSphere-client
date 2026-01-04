@@ -161,7 +161,7 @@ const Register = () => {
               id="fullName"
               name="name"
               placeholder="Enter Your Name"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+              className=" w-full px-4 py-2 border rounded-md  border-gray-300 text-gray-900 bg-white placeholder-gray-400  focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400  dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500 transition-colors duration-300"
             />
           </div>
 
@@ -177,7 +177,7 @@ const Register = () => {
               id="email"
               name="email"
               placeholder="you@example.com"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+              className="w-full px-4 py-2 border rounded-md  border-gray-300 text-gray-900 bg-white placeholder-gray-400  focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400  dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500 transition-colors duration-300"
             />
           </div>
 
@@ -193,11 +193,11 @@ const Register = () => {
               type="text"
               id="photo"
               placeholder="Photo Url"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+              className="w-full px-4 py-2 border rounded-md  border-gray-300 text-gray-900 bg-white placeholder-gray-400  focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400  dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500 transition-colors duration-300"
             />
           </div>
 
-          <div className="mb-4 text-left">
+          <div className="relative mb-4 text-left">
             <label
               htmlFor="password"
               className="block text-gray-700 font-semibold mb-1"
@@ -209,11 +209,11 @@ const Register = () => {
               type={show ? "text" : "password"}
               id="password"
               placeholder="Enter password"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+              className="w-full px-4 py-2 border rounded-md  border-gray-300 text-gray-900 bg-white placeholder-gray-400  focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400  dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500 transition-colors duration-300"
             />
             <span
               onClick={() => setShow(!show)}
-              className="absolute right-[28px] top-[32px] cursor-pointer z-50"
+              className="absolute right-[28px] top-[40px] cursor-pointer z-50 text-gray-500 dark:text-gray-400 transition-colors duration-300"
             >
               {show ? <FaEye /> : <IoEyeOff />}
             </span>
@@ -231,7 +231,7 @@ const Register = () => {
               id="confirmPassword"
               name="confirmPassword"
               placeholder="Re-enter password"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+              className="w-full px-4 py-2 border rounded-md  border-gray-300 text-gray-900 bg-white placeholder-gray-400  focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400  dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500 transition-colors duration-300"
             />
           </div>
 
